@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: gce
+    networking.gke.io/managed-certificates: zpm-registry-certificate
+  name: zpm-registry
+  namespace: iris
+spec:
+  rules:
+  - host: test.myardyas.online
+    http:
+      paths:
+      - backend:
+          serviceName: zpm-registry
+          servicePort: 52773
+        path: /*
