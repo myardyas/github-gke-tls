@@ -8,7 +8,7 @@ metadata:
   namespace: iris
 spec:
   rules:
-  - host: test.myardyas.online
+  - host: zpm.myardyas.online
     http:
       paths:
       - backend:
