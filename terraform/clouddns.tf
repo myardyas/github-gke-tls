@@ -1,5 +1,5 @@
 resource "google_dns_managed_zone" "my-zone" {
-  name        = "myardyas.online"
-  dns_name    = "myardyas.online."
+  name        = "zpm-zone"
+  dns_name    = "zpm.myardyas.online."
   description = "My DNS zone"
 }
