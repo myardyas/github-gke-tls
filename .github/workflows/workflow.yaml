@@ -19,7 +19,10 @@ env:
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
   K8S_NAMESPACE: iris
   STATEFULSET_NAME: zpm-registry
-
+  DNS_ZONE: myardyas.online
+  HELM_VERSION: 2.20.6
+  EXTERNAL_DNS_CHART_VERSION: 2.20.6
+ 
 jobs:
 #  gcloud-setup-and-build-and-publish-to-GCR:
 #    name: Setup gcloud utility, Build ZPM image and Publish it to Container Registry
@@ -121,8 +124,8 @@ jobs:
   
     - name: Install External DNS
       run: |
-        wget -q https://get.helm.sh/helm-v3.1.1-linux-amd64.tar.gz
-        tar -zxvf helm-v3.1.1-linux-amd64.tar.gz
+        wget -q https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz
+        tar -zxvf helm-v${HELM_VERSION}-linux-amd64.tar.gz
         cd linux-amd64
         ./helm version
         ./helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -131,12 +134,12 @@ jobs:
         kubectl create secret generic external-dns --from-file=./credentials.json --dry-run -o yaml | kubectl apply -f -
         ./helm upgrade external-dns bitnami/external-dns \
           --install                                      \
-          --version=2.20.6                               \
+          --version=${EXTERNAL_DNS_CHART_VERSION}        \
           --set provider=google                          \
           --set google.project=${PROJECT_ID}             \
           --set google.serviceAccountSecret=external-dns \
           --set registry=txt                             \
           --set txtOwnerId=k8s                           \
           --set policy=sync                              \
-          --set domainFilters={myardyas.online}      \
+          --set domainFilters={${DNS_ZONE}}              \
           --set rbac.create=true
