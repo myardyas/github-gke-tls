@@ -118,3 +118,13 @@ jobs:
         kubectl apply -f ingress.yaml
         kubectl apply -f statefulset.yaml
         kubectl -n ${K8S_NAMESPACE} rollout status statefulset/${STATEFULSET_NAME}
+
+    - name: Install External DNS
+      uses: deliverybot/helm@v1
+      with:
+        release: external-dns
+        chart: external-dns
+        repository: stable
+        version: 2.20.3
+        namespace: external-dns
+        helm: helm3
