@@ -86,8 +86,8 @@ jobs:
 
   kubernetes-deploy:
     name: Deploy Kubernetes manifests to GKE cluster
-    needs:
-    - gcloud-setup-and-build-and-publish-to-GCR
+#    needs:
+#    - gcloud-setup-and-build-and-publish-to-GCR
     - gke-provisioner
     runs-on: ubuntu-18.04
     steps:
