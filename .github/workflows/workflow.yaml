@@ -138,5 +138,5 @@ jobs:
           --set registry=txt                             \
           --set txtOwnerId=k8s                           \
           --set policy=sync                              \
-          --set domainFilters={zpm.myardyas.online}      \
+          --set domainFilters={myardyas.online}      \
           --set rbac.create=true
