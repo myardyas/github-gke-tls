@@ -125,3 +125,4 @@ jobs:
         tar -zxvf helm-v3.1.1-linux-amd64.tar.gz
         chmod u+x linux-amd64/helm
         linux-amd64/helm version
+        echo $PATH
