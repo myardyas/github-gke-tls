@@ -16,6 +16,6 @@ spec:
           servicePort: 52773
         path: /*
   tls:
-  - secretName: zpm-registry-secret
-      hosts:
-      - zpm.myardyas.online
+  - hosts:
+    - zpm.myardyas.online
+    secretName: zpm-registry-secret
