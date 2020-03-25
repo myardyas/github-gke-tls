@@ -20,7 +20,7 @@ env:
   K8S_NAMESPACE: iris
   STATEFULSET_NAME: zpm-registry
   DNS_ZONE: myardyas.online
-  HELM_VERSION: 2.20.6
+  HELM_VERSION: 3.1.1
   EXTERNAL_DNS_CHART_VERSION: 2.20.6
  
 jobs:
