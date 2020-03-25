@@ -125,3 +125,5 @@ jobs:
         tar -zxvf helm-v3.1.1-linux-amd64.tar.gz
         cd linux-amd64
         ./helm version
+        ./helm repo add bitnami https://charts.bitnami.com/bitnami
+        ./helm install external-dns bitnami/external-dns
