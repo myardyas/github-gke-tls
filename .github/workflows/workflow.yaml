@@ -127,4 +127,9 @@ jobs:
         ./helm version
         ./helm repo add bitnami https://charts.bitnami.com/bitnami
         gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
-        ./helm install external-dns bitnami/external-dns
+        ./helm upgrade external-dns bitnami/external-dns \
+          --set provider=google                          \
+          --set google.project=${PROJECT_ID}             \
+          --set registry=txt                             \
+          --set txtOwnerId=k8s                           \
+          --set domainFilters={zpm.myardyas.online}
