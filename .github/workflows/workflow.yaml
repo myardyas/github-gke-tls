@@ -94,33 +94,32 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Replace placeholders with values in statefulset template
-      working-directory: ./k8s/
-      run: |
-        cat statefulset.tpl |\
-        sed "s|DOCKER_REPO_NAME|${GCR_LOCATION}/${PROJECT_ID}/${IMAGE_NAME}|" |\
-        sed "s|DOCKER_IMAGE_TAG|${GITHUB_SHA}|" > statefulset.yaml
-        cat statefulset.yaml
+#    - name: Replace placeholders with values in statefulset template
+#      working-directory: ./k8s/
+#      run: |
+#        cat statefulset.tpl |\
+#        sed "s|DOCKER_REPO_NAME|${GCR_LOCATION}/${PROJECT_ID}/${IMAGE_NAME}|" |\
+#        sed "s|DOCKER_IMAGE_TAG|${GITHUB_SHA}|" > statefulset.yaml
+#        cat statefulset.yaml
 
-    - name: Setup gcloud cli
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-      with:
-        version: '275.0.0'
-        service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+#    - name: Setup gcloud cli
+#      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+#      with:
+#        version: '275.0.0'
+#        service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
 
-    - name: Apply Kubernetes manifests
-      working-directory: ./k8s/
-      run: |
-        gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
-        kubectl apply -f namespace.yaml
-        kubectl apply -f managed-certificate.yaml
-        kubectl apply -f service.yaml
-        kubectl apply -f ingress.yaml
-        kubectl apply -f statefulset.yaml
-        kubectl -n ${K8S_NAMESPACE} rollout status statefulset/${STATEFULSET_NAME}
+#    - name: Apply Kubernetes manifests
+#      working-directory: ./k8s/
+#      run: |
+#        gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
+#        kubectl apply -f namespace.yaml
+#        kubectl apply -f managed-certificate.yaml
+#        kubectl apply -f service.yaml
+#        kubectl apply -f ingress.yaml
+#        kubectl apply -f statefulset.yaml
+#        kubectl -n ${K8S_NAMESPACE} rollout status statefulset/${STATEFULSET_NAME}
   
     - name: Install External DNS
-      working-directory: ./external-dns/
       run: |
         wget https://get.helm.sh/helm-v3.1.1-linux-amd64.tar.gz
         tar -zxvf helm-v3.1.1-linux-amd64.tar.gz
