@@ -102,11 +102,11 @@ jobs:
 #        sed "s|DOCKER_IMAGE_TAG|${GITHUB_SHA}|" > statefulset.yaml
 #        cat statefulset.yaml
 
-#    - name: Setup gcloud cli
-#      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-#      with:
-#        version: '275.0.0'
-#        service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+    - name: Setup gcloud cli
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '275.0.0'
+        service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
 
 #    - name: Apply Kubernetes manifests
 #      working-directory: ./k8s/
@@ -126,4 +126,5 @@ jobs:
         cd linux-amd64
         ./helm version
         ./helm repo add bitnami https://charts.bitnami.com/bitnami
+        gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
         ./helm install external-dns bitnami/external-dns
