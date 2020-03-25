@@ -129,6 +129,7 @@ jobs:
         gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
         ./helm upgrade external-dns bitnami/external-dns \
           --install                                      \
+          --namespace=external-dns                       \
           --version=2.20.6                               \
           --set provider=google                          \
           --set google.project=${PROJECT_ID}             \
