@@ -23,10 +23,9 @@ spec:
         - sh
         - -c
         - |
-          echo IRIS_PASSWORD > /usr/irissys/mgr/password.txt
           chown -R 51773:52773 /opt/zpm/REGISTRY-DATA
           chmod g+w /opt/zpm/REGISTRY-DATA
-          echo -e "zn \"%SYS\"\nwrite ##class(SYS.Container).ChangePassword(\"/usr/irissys/mgr/password.txt\")\nif (##class(SYS.Database).%ExistsId(\"/opt/zpm/REGISTRY-DATA\")) { halt }\nset db=##class(SYS.Database).%New()\nset db.Directory=\"/opt/zpm/REGISTRY-DATA\"\nset db.ResourceName=\"%DB_REGISTRY\"\nwrite db.%Save()\nhalt" > /mount-helper/mount_registry_data
+          echo -e "zn \"%sys\"\nif (##class(SYS.Database).%ExistsId(\"/opt/zpm/REGISTRY-DATA\")) { halt }\nset db=##class(SYS.Database).%New()\nset db.Directory=\"/opt/zpm/REGISTRY-DATA\"\nset db.ResourceName=\"%DB_REGISTRY\"\nwrite db.%Save()\nhalt" > /mount-helper/mount_registry_data
         volumeMounts:
         - mountPath: /opt/zpm/REGISTRY-DATA
           name: zpm-registry-volume
@@ -47,7 +46,6 @@ spec:
               - |
                 sleep 30
                 iris session iris < /mount-helper/mount_registry_data
-                rm -f /mount-helper/mount_registry_data /usr/irissys/mgr/password.txt
         ports:
         - containerPort: 52773
           name: web
