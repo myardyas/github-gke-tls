@@ -47,7 +47,6 @@ spec:
               - |
                 sleep 30
                 iris session iris < /mount-helper/mount_registry_data
-                rm -f /mount-helper/mount_registry_data /usr/irissys/mgr/password.txt
         ports:
         - containerPort: 52773
           name: web
