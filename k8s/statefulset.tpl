@@ -49,17 +49,17 @@ spec:
         ports:
         - containerPort: 52773
           name: web
-#        readinessProbe:
-#          httpGet:
-#            path: /csp/sys/UtilHome.csp
-#            port: 52773
-#          initialDelaySeconds: 10
-#          periodSeconds: 10
-#        livenessProbe:
-#          httpGet:
-#            path: /csp/sys/UtilHome.csp
-#            port: 52773
-#          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /csp/sys/UtilHome.csp
+            port: 52773
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /csp/sys/UtilHome.csp
+            port: 52773
+          periodSeconds: 10
         volumeMounts:
         - mountPath: /opt/zpm/REGISTRY-DATA
           name: zpm-registry-volume
